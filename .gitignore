@@ -1,0 +1,61 @@
+# === Monorepo Root ===
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+.directory
+
+# IDE / Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.iml
+
+# === Backend (Symfony) ===
+###> symfony/framework-bundle ###
+/backend/.env.local
+/backend/.env.local.php
+/backend/.env.*.local
+/backend/config/secrets/prod/prod.decrypt.private.php
+/backend/public/bundles/
+/backend/var/
+/backend/vendor/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/backend/phpunit.xml
+/backend/.phpunit.cache/
+###< phpunit/phpunit ###
+
+###> symfony/asset-mapper ###
+/backend/public/assets/
+/backend/assets/vendor/
+###< symfony/asset-mapper ###
+
+# === Infrastructure ===
+# Add any infra-specific ignores here if needed
+
+# === General ===
+*.log
+*.tmp
+*.cache
+.env
+.env.*
+!.env.example
+
