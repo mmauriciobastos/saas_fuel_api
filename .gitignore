@@ -36,6 +36,7 @@ $RECYCLE.BIN/
 /backend/public/bundles/
 /backend/var/
 /backend/vendor/
+/backend/migrations/*
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
