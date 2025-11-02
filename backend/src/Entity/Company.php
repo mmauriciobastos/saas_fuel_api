@@ -30,10 +30,22 @@ class Company
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: User::class, orphanRemoval: true)]
     private Collection $users;
 
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Client::class, orphanRemoval: true)]
+    private Collection $clients;
+
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: DeliveryTruck::class, orphanRemoval: true)]
+    private Collection $deliveryTrucks;
+
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Order::class, orphanRemoval: true)]
+    private Collection $orders;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->users = new ArrayCollection();
+        $this->clients = new ArrayCollection();
+        $this->deliveryTrucks = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
 
@@ -115,6 +127,93 @@ class Company
             // set the owning side to null (unless already changed)
             if ($user->getCompany() === $this) {
                 $user->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Client>
+     */
+    public function getClients(): Collection
+    {
+        return $this->clients;
+    }
+
+    public function addClient(Client $client): static
+    {
+        if (!$this->clients->contains($client)) {
+            $this->clients->add($client);
+            $client->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClient(Client $client): static
+    {
+        if ($this->clients->removeElement($client)) {
+            if ($client->getCompany() === $this) {
+                $client->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DeliveryTruck>
+     */
+    public function getDeliveryTrucks(): Collection
+    {
+        return $this->deliveryTrucks;
+    }
+
+    public function addDeliveryTruck(DeliveryTruck $deliveryTruck): static
+    {
+        if (!$this->deliveryTrucks->contains($deliveryTruck)) {
+            $this->deliveryTrucks->add($deliveryTruck);
+            $deliveryTruck->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDeliveryTruck(DeliveryTruck $deliveryTruck): static
+    {
+        if ($this->deliveryTrucks->removeElement($deliveryTruck)) {
+            if ($deliveryTruck->getCompany() === $this) {
+                $deliveryTruck->setCompany(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setCompany($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            if ($order->getCompany() === $this) {
+                $order->setCompany(null);
             }
         }
 
