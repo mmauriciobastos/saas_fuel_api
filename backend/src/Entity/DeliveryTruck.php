@@ -20,14 +20,17 @@ use Symfony\Component\Serializer\Attribute\Groups;
         new GetCollection(normalizationContext: ['groups' => ['truck:read']]),
         new Get(normalizationContext: ['groups' => ['truck:read']]),
         new Post(
+            normalizationContext: ['groups' => ['truck:read']],
             denormalizationContext: ['groups' => ['truck:write']],
             processor: \App\StateProcessor\CompanyStateProcessor::class
         ),
         new Put(
+            normalizationContext: ['groups' => ['truck:read']],
             denormalizationContext: ['groups' => ['truck:write']],
             processor: \App\StateProcessor\CompanyStateProcessor::class
         ),
         new Patch(
+            normalizationContext: ['groups' => ['truck:read']],
             denormalizationContext: ['groups' => ['truck:write']],
             processor: \App\StateProcessor\CompanyStateProcessor::class
         ),

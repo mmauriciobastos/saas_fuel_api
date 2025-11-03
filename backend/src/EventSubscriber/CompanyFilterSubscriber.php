@@ -6,7 +6,7 @@ use App\Entity\User;
 use App\Filter\CompanyFilter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -25,11 +25,12 @@ class CompanyFilterSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::REQUEST => ['onKernelRequest', 10],
+            // Run after the security layer set the authenticated user token
+            KernelEvents::CONTROLLER => ['onKernelController', 0],
         ];
     }
 
-    public function onKernelRequest(RequestEvent $event): void
+    public function onKernelController(ControllerEvent $event): void
     {
         // Skip if no token (user not authenticated)
         $token = $this->tokenStorage->getToken();
@@ -51,7 +52,10 @@ class CompanyFilterSubscriber implements EventSubscriberInterface
         }
 
         // Enable and configure the company filter
-        $filter = $this->em->getFilters()->enable('company_filter');
+        $filterCollection = $this->em->getFilters();
+        $filter = $filterCollection->isEnabled('company_filter')
+            ? $filterCollection->getFilter('company_filter')
+            : $filterCollection->enable('company_filter');
         $filter->setParameter('company_id', $company->getId());
     }
 }
