@@ -22,7 +22,8 @@ class OrderFixtures extends Fixture implements DependentFixtureInterface
         
         // We seeded 10 companies in AppFixtures
         $companies = 10;
-        $ordersPerCompany = 6; // adjust to taste
+    // Orders per company (up to 100)
+    $ordersPerCompany = random_int(80, 100);
 
         $statuses = ['pending', 'scheduled', 'delivered'];
 

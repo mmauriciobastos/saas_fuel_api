@@ -47,8 +47,9 @@ class AppFixtures extends Fixture
                 $this->addReference(sprintf('company_%d_user_%d', $ci, $u), $user);
             }
 
-            // Clients per company
-            for ($c = 1; $c <= 5; $c++) {
+            // Clients per company (up to 100)
+            $clientsPerCompany = random_int(80, 100);
+            for ($c = 1; $c <= $clientsPerCompany; $c++) {
                 $client = new Client();
                 $client->setName($faker->company());
                 $client->setEmail($faker->unique()->companyEmail());
