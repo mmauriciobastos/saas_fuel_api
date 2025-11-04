@@ -2,29 +2,69 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            normalizationContext: ['groups' => ['company:read']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+        new Get(
+            normalizationContext: ['groups' => ['company:read']],
+            security: "is_granted('ROLE_ADMIN') or object.getId() == user.getCompany().getId()"
+        ),
+        new Post(
+            denormalizationContext: ['groups' => ['company:write']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+        new Put(
+            denormalizationContext: ['groups' => ['company:write']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+        new Patch(
+            denormalizationContext: ['groups' => ['company:write']],
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+        new Delete(
+            security: "is_granted('ROLE_ADMIN')"
+        ),
+    ]
+)]
 #[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['company:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company:read', 'company:write'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['company:read', 'company:write'])]
     private ?string $slug = null;
 
     #[ORM\Column]
+    #[Groups(['company:read'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['company:read'])]
     private ?\DateTime $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'company', targetEntity: User::class, orphanRemoval: true)]
