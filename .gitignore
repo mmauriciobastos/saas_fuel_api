@@ -29,9 +29,6 @@ $RECYCLE.BIN/
 
 # === Backend (Symfony) ===
 ###> symfony/framework-bundle ###
-/backend/.env.local
-/backend/.env.local.php
-/backend/.env.*.local
 /backend/config/secrets/prod/prod.decrypt.private.php
 /backend/public/bundles/
 /backend/var/
@@ -56,7 +53,6 @@ $RECYCLE.BIN/
 *.log
 *.tmp
 *.cache
-.env
-.env.*
-!.env.example
+# .env
+# .env.*
 
