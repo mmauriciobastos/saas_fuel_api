@@ -1,4 +1,4 @@
-# SaaS Fuel App
+# SaaS Fuel API
 
 Backend API built with Symfony for a multi-tenant fuel delivery SaaS platform.
 Provides secure authentication, company-scoped data access, and resources for managing clients, orders, trucks, and users.
@@ -6,7 +6,7 @@ Provides secure authentication, company-scoped data access, and resources for ma
 ## 📁 Project Structure
 
 ```
-saas_fuel_app/
+saas_fuel_api/
 ├── backend/          # Symfony application
 │   ├── src/          # Application source code
 │   ├── config/       # Symfony configuration
@@ -35,13 +35,13 @@ Make sure you have the following installed on your machine:
 ## Clone the Repository
 
 ```bash
-git clone https://github.com/mmauriciobastos/saas_fuel_app.git
+git clone https://github.com/mmauriciobastos/saas_fuel_api.git
 ```
 
 Navigate into the project directory:
 
 ```bash
-cd saas_fuel_app
+cd saas_fuel_api
 ```
 
 ---
@@ -91,15 +91,11 @@ Seed the database with fixtures:
 docker exec -it symfony-app php bin/console doctrine:fixtures:load
 ```
 
----
-
-## Accessing the Application
-
 ### API (Swagger UI)
 Open in your browser:
 
 ```
-http://localhost/api/docs
+http://localhost:8000/api/docs
 ```
 
 ### pgAdmin
@@ -117,26 +113,43 @@ http://localhost:8081
 
 ## Frontend (Admin Panel - Next.js)
 
-The frontend administration panel is located in a separate repository.
+⚠️ **Important:** Clone the frontend admin panel in a **separate repository** and **not** inside the Symfony API project folder.
+
+Recomended folder structure:
+```
+your_local_folder/
+├── saas_fuel_api/    # Symfony API (backend)
+└── saas_fuel_admin/  # NextJS Admin Dashboard (frontend)
+```
 
 ### Clone the Frontend Repository
 
-Clone it outside the `saas_fuel_app` folder (or anywhere you prefer):
+Clone it outside the `saas_fuel_api` folder (or anywhere you prefer):
 
+```
 git clone https://github.com/mmauriciobastos/saas_fuel_admin.git
+```
 
 ### Start the Frontend Application
 
 Navigate to the frontend project and start the containers:
 
+```
 cd saas_fuel_admin
 docker-compose up -d
+```
 
-This will build and run the Next.js application.
+This will build and run the Next.js Admin Dashboard application.
 
-### Access the Frontend
+### Access the Admin Dashboard (frontend)
 
 http://localhost:3000
+
+
+Frontend repository for reference:
+```
+https://github.com/mmauriciobastos/saas_fuel_admin
+```
 
 # Run tests
 php bin/phpunit
@@ -159,16 +172,6 @@ docker-compose down
 docker-compose up -d --build
 ```
 
-## 🛠️ Available Scripts
-
-See the `scripts/` directory for helper scripts that automate common tasks.
-
-## 📝 Environment Configuration
-
-Create `.env` files in the `backend/` directory as needed:
-- `.env` - Base configuration
-- `.env.local` - Local overrides (gitignored)
-
 ## 🗄️ Database
 
 - **Type:** PostgreSQL 16
@@ -186,21 +189,5 @@ Create `.env` files in the `backend/` directory as needed:
 3. **Symfony PHP-FPM** - Internal
 4. **Nginx** - Port 8000
 
-## 📦 Monorepo Benefits
 
-- **Unified version control** - Single repository for all related code
-- **Atomic commits** - Changes to backend and infrastructure together
-- **Shared tooling** - Common scripts and configurations
-- **Easier collaboration** - All team members see the full stack
-
-## 🤝 Contributing
-
-1. Create a feature branch from `main`
-2. Make your changes
-3. Commit with clear messages
-4. Push and create a pull request
-
-## 📄 License
-
-[Add your license information here]
 
