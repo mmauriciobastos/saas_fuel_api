@@ -1,5 +1,5 @@
 api_platform:
-    title: ManagePetro API
+    title: Saas Fuel API
     version: 1.0.0
     description: API for the ManagePetro fuel delivery SaaS platform
     defaults:
