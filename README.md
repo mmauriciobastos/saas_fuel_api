@@ -113,7 +113,11 @@ http://localhost:8081
 
 ## Frontend (Admin Panel - Next.js)
 
-⚠️ **Important:** Clone the frontend admin panel in a **separate repository** and **not** inside the Symfony API project folder.
+⚠️ **Important:** 
+
+> The frontend administration panel is located in a **separate repository**:  
+> https://github.com/mmauriciobastos/saas_fuel_admin  
+> Make sure to **clone it outside** of the current Symfony API project folder.
 
 Recomended folder structure:
 ```
