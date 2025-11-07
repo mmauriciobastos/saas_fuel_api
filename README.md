@@ -92,32 +92,19 @@ docker exec -it symfony-app php bin/console doctrine:fixtures:load
 ```
 
 ### API (Swagger UI)
-Open in your browser:
+Open the Swagger UI in your browser:
 
-```
 http://localhost:8000/api/docs
-```
 
-### pgAdmin
-```
-http://localhost:8081
-```
-
-**pgAdmin Credentials:**
-
-| Field      | Value             |
-|-----------|-------------------|
-| Login     | admin@local.com   |
-| Password  | admin             |
+> Once the Swagger UI loads at that URL, you can proceed to set up the frontend.
 
 
 ## Frontend (Admin Panel - Next.js)
 
-⚠️ **Important:** 
+### Clone the Frontend Repository
 
-> The frontend administration panel is located in a **separate repository**:  
-> https://github.com/mmauriciobastos/saas_fuel_admin  
-> Make sure to **clone it outside** of the current Symfony API project folder.
+⚠️ **Important:** 
+Clone it outside the `saas_fuel_api` folder (or anywhere you prefer):
 
 Recomended folder structure:
 ```
@@ -126,21 +113,31 @@ your_local_folder/
 └── saas_fuel_admin/  # NextJS Admin Dashboard (frontend)
 ```
 
-### Clone the Frontend Repository
-
-Clone it outside the `saas_fuel_api` folder (or anywhere you prefer):
+Navigate to 'your_local_folder' and clone the frontend repository:
 
 ```
 git clone https://github.com/mmauriciobastos/saas_fuel_admin.git
 ```
 
-### Start the Frontend Application
+### Option A: Docker container
 
-Navigate to the frontend project and start the containers:
+Navigate to the frontend project to build and start the containers:
 
 ```
 cd saas_fuel_admin
-docker-compose up -d
+```
+
+```
+docker compose build --no-cache
+```
+
+```
+docker compose up -d
+```
+
+Install dependecies
+```
+docker exec -it saas_fuel_admin_web npm install
 ```
 
 This will build and run the Next.js Admin Dashboard application.
@@ -148,6 +145,44 @@ This will build and run the Next.js Admin Dashboard application.
 ### Access the Admin Dashboard (frontend)
 
 http://localhost:3000
+
+**Credentials**
+
+| Field    | Value                          |
+|----------|--------------------------------|
+| Email    | william.mcallister@example.com |
+| Password | password                       |
+
+### Option B: Local installation with NPM
+
+```
+cd saas_fuel_admin
+```
+
+Install dependecies
+
+```
+npm install
+```
+
+Run development server
+```
+npm run dev
+```
+
+
+This will build and run the Next.js Admin Dashboard application.
+
+### Access the Admin Dashboard (frontend)
+
+http://localhost:3000
+
+**Credentials**
+
+| Field    | Value                          |
+|----------|--------------------------------|
+| Email    | william.mcallister@example.com |
+| Password | password                       |
 
 
 Frontend repository for reference:
@@ -183,6 +218,21 @@ docker-compose up -d --build
 - **Default User:** mauricio
 - **Default Password:** secret
 - **Port:** 5432
+
+
+### pgAdmin
+```
+http://localhost:8081
+```
+
+**pgAdmin Credentials:**
+
+| Field      | Value             |
+|-----------|-------------------|
+| Login     | admin@local.com   |
+| Password  | admin             |
+
+
 
 ## 🔧 Services
 
