@@ -1,4 +1,6 @@
 {
+    "name": "mmauriciobastos/saas-fuel-api",
+    "description": "SaaS Fuel API - Symfony application (not published as a package)",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
